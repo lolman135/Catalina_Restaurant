@@ -63,4 +63,9 @@ public class Order {
         this.totalPrice = totalPrice;
         this.createdAt = createdAt.withNano(0);
     }
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 }

@@ -26,4 +26,9 @@ public class OrderItem {
 
     @Column(name = "quantity")
     private int quantity;
+
+    public OrderItem(MenuItem menuItem, int quantity) {
+        this.menuItem = menuItem;
+        this.quantity = quantity;
+    }
 }
