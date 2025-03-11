@@ -11,7 +11,7 @@
     <groupId>com.coursework.app</groupId>
     <artifactId>CatalinaRestaurant</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>CatalinaRestaurant</name>
     <description>CatalinaRestaurant</description>
     <url/>
@@ -83,6 +83,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
