@@ -3,6 +3,7 @@ package com.coursework.app.catalinarestaurant.service.menuItem;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.repository.MenuItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public List<MenuItem> findAll() {
-        return menuItemsRepository.findAll();
+        return menuItemsRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override

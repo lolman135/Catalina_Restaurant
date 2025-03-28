@@ -1,0 +1,26 @@
+package com.coursework.app.catalinarestaurant.controller;
+
+import com.coursework.app.catalinarestaurant.entity.MenuItem;
+import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/catalina_restaurant")
+public class MenuItemsController {
+
+    @Autowired
+    private MenuItemService menuItemService;
+
+    @GetMapping("/menu")
+    public String showMainPage(Model model){
+        List<MenuItem> menuItemList = menuItemService.findAll();
+        model.addAttribute("menuItemList", menuItemList);
+        return "menu-page";
+    }
+}
