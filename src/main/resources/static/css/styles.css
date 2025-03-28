@@ -1,6 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     background-color: #333333;
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -8,8 +13,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    background-color: whitesmoke;
     text-align: center;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 header {
@@ -21,18 +28,16 @@ header {
 }
 
 header h1 {
-    font-family: "American Typewriter",serif;
+    font-family: "American Typewriter", serif;
     line-height: 1;
     margin: 0;
 }
 
 main {
-    background-color: whitesmoke;
     padding-left: 50px;
     padding-right: 50px;
     flex: 1 1 auto;
     padding-bottom: 50px;
-
 }
 
 footer {
@@ -61,7 +66,7 @@ footer {
     color: whitesmoke;
 }
 
-.add_to_cart:active{
+.add_to_cart:active {
     background-color: firebrick;
     color: #e8e8e8;
 }
@@ -70,6 +75,8 @@ footer {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .menu-container {
@@ -79,6 +86,11 @@ footer {
     gap: 20px;
     padding: 20px;
     align-items: flex-start;
+    align-content: flex-start;
+    max-width: 1360px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .menu-item {
@@ -130,10 +142,27 @@ footer {
     color: #d9534f;
 }
 
+@media (max-width: 1240px) {
+    .menu-container {
+        max-width: 800px;
+        column-gap: 4px;
+    }
+}
+
+@media (max-width: 940px) {
+    .menu-container {
+        max-width: 500px;
+        column-gap: 2px;
+    }
+}
+
 @media (max-width: 768px) {
     .menu-container {
         flex-direction: column;
         align-items: center;
+        max-width: 640px;
+        width: 100%;
+        row-gap: 20px;
     }
 
     .menu-item {
@@ -156,6 +185,8 @@ footer {
         flex-direction: column;
         align-items: center;
         padding: 10px;
+        max-width: none;
+        width: 100%;
     }
 
     .menu-item {

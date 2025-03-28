@@ -20,6 +20,9 @@ public class MenuItemsController {
     @GetMapping("/menu")
     public String showMainPage(Model model){
         List<MenuItem> menuItemList = menuItemService.findAll();
+        for (int i = 0; i < 2; i++) {
+            menuItemService.findAll().forEach(element -> menuItemList.add(element));
+        }
         model.addAttribute("menuItemList", menuItemList);
         return "menu-page";
     }
