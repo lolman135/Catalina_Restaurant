@@ -3,7 +3,7 @@
 }
 
 html {
-    background-color: #333333;
+    /*background-color: #333333;*/
     height: 100%;
     overflow-x: hidden;
 }
@@ -13,7 +13,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
+    background-image: url('../images/background.jpg'); !important;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     text-align: center;
     width: 100%;
     overflow-x: hidden;
@@ -89,15 +93,17 @@ footer {
     align-content: flex-start;
     max-width: 1360px;
     width: 100%;
-    margin: 0 auto;
     box-sizing: border-box;
+    background-color: rgba(150, 150, 150, 0.6);
+    border-radius: 30px;
+    margin: 10px auto;
 }
 
 .menu-item {
     position: relative;
     min-height: 300px;
     width: 300px;
-    background: white;
+    background: rgba(200, 200, 200, 0.75);
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -111,10 +117,12 @@ footer {
 }
 
 .menu-image {
-    width: 100%;
+    width: 93%;
     height: auto;
     object-fit: cover;
     display: block;
+    margin: 10px;
+    border-radius: 10px;
 }
 
 .menu-details {
@@ -192,6 +200,11 @@ footer {
     .menu-item {
         width: 100%;
         max-width: 100%;
+        min-height: 100%;
+    }
+
+    .menu-image {
+        min-width: 95%;
     }
 
     header {
