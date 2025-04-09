@@ -55,6 +55,7 @@ public class OrderController {
     {
         Order order = orderMapper.toEntity(orderDto, cart);
         orderService.save(order);
+        cart.clear();
         return "redirect:/catalina-restaurant/menu";
     }
 }
