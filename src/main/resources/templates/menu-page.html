@@ -10,35 +10,35 @@
 
 <div class="wrapper">
 
-  <header>
-    <h1>Catalina Restaurant</h1>
-  </header>
+    <header>
+        <h1>Catalina Restaurant</h1>
+    </header>
 
-  <main class="menu-container">
-    <div th:each="item : ${menuItemList}" class="menu-item" th:id="${item.id}">
-      <img th:src="${item.imageUrl}" class="menu-image" width="300" height="200" th:alt="${item.name}">
-      <div class="menu-details">
-        <h2 th:text="${item.name}"></h2>
-        <p th:text="${item.description}"></p>
-        <span class="price" th:text="'Price: ₴' + ${item.price}"></span>
-        <br>
-        <form action="/catalina-restaurant/add-to-cart" method="post">
-          <div>
-            <input type="hidden" name="itemId" th:value="${item.id}" />
+    <main class="menu-container">
+        <div th:each="item : ${menuItemList}" class="menu-item" th:id="${item.id}">
+            <img th:src="${item.imageUrl}" class="menu-image" width="300" height="200" th:alt="${item.name}">
+            <div class="menu-details">
+                <h2 th:text="${item.name}"></h2>
+                <p th:text="${item.description}"></p>
+                <span class="price" th:text="'Price: ₴' + ${item.price}"></span>
+                <br>
+                <form action="/catalina-restaurant/add-to-cart" method="post">
+                      <div>
+                          <input type="hidden" name="itemId" th:value="${item.id}" />
 
-            <label th:for="'quantity-' + ${item.id}">quantity:</label>
-            <div class="quantity-container">
-              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(-1, ' + ${item.id} + ')'">−</button>
-              <input type="number" class="quantity-input" th:id="'quantity-' + ${item.id}" name="quantity" min="1" value="1" readonly required />
-              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
+                          <label th:for="'quantity-' + ${item.id}">quantity:</label>
+                          <div class="quantity-container">
+                              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(-1, ' + ${item.id} + ')'">−</button>
+                              <input type="number" class="quantity-input" th:id="'quantity-' + ${item.id}" name="quantity" min="1" value="1" readonly required />
+                              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
+                          </div>
+
+                          <button type="submit" class="add_to_cart">add to cart</button>
+                      </div>
+                </form>
             </div>
-
-            <button type="submit" class="add_to_cart">add to cart</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
+        </div>
+    </main>
 
   <footer>
     Course work. American and mexican restaurant
