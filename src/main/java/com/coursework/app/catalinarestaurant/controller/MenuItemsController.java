@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/catalina_restaurant")
+@RequestMapping("/catalina-restaurant")
 public class MenuItemsController {
 
-    @Autowired
-    private MenuItemService menuItemService;
+    private final MenuItemService menuItemService;
+
+    public MenuItemsController(MenuItemService menuItemService) {
+        this.menuItemService = menuItemService;
+    }
 
     @GetMapping("/menu")
     public String showMainPage(Model model){

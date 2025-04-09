@@ -1,8 +1,7 @@
 package com.coursework.app.catalinarestaurant.service.menuItem;
 
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
-import com.coursework.app.catalinarestaurant.repository.MenuItemsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.coursework.app.catalinarestaurant.repository.menuItem.MenuItemRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,27 +11,30 @@ import java.util.Optional;
 @Service("MenuItemServiceImpl")
 public class MenuItemServiceImpl implements MenuItemService {
 
-    @Autowired
-    private MenuItemsRepository menuItemsRepository;
+    private final MenuItemRepository menuItemRepository;
+
+    public MenuItemServiceImpl(MenuItemRepository menuItemRepository) {
+        this.menuItemRepository = menuItemRepository;
+    }
 
     @Override
     public String save(MenuItem menuItem) {
         if (menuItem == null){
             throw new IllegalArgumentException("Wrong data provided!");
         }
-        menuItemsRepository.save(menuItem);
+        menuItemRepository.save(menuItem);
         return "Dish successfully added to the menu";
     }
 
     @Override
     public boolean deleteById(Long id) {
-        menuItemsRepository.deleteById(id);
+        menuItemRepository.deleteById(id);
         return true;
     }
 
     @Override
     public List<MenuItem> findAll() {
-        return menuItemsRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return menuItemRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override
@@ -40,7 +42,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         if (id == null){
             throw new IllegalArgumentException("Wrong id provided!");
         }
-        Optional<MenuItem> item = menuItemsRepository.findById(id);
+        Optional<MenuItem> item = menuItemRepository.findById(id);
         return item.orElse(null);
     }
 }

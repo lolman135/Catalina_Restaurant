@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - Catalina Restaurant</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <h1>Catalina Restaurant</h1>
+  </header>
+
+  <main class="menu-container">
+    <div class="error-container">
+      <h2>Oops! Something Went Wrong</h2>
+      <p th:text="${errorMessage != null ? errorMessage : 'An unexpected error occurred. Please try again later.'}">
+        An unexpected error occurred. Please try again later.
+      </p>
+      <p th:if="${errorCode != null}">
+        Error Code: <span th:text="${errorCode}"></span>
+      </p>
+      <a href="/catalina-restaurant/menu" class="add_to_cart">Back to Menu</a>
+    </div>
+  </main>
+
+  <footer>
+    Course work. American and mexican restaurant
+  </footer>
+
+</div>
+
+<script src="/scripts/script.js" defer></script>
+</body>
+</html>

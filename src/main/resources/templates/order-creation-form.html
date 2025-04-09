@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Registration</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/order-style.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1> Order Registration </h1>
+    </header>
+
+    <main>
+        <form action=/catalina-restaurant/order/register method="post" class="order-form-wrapper">
+            <h2>Customer Information</h2>
+
+            <label for="customerName">Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <label for="customerPhone">Phone:</label>
+            <input type="text" id="customerPhone" name="customerPhone" required>
+
+            <label for="customerAddress">Address:</label>
+            <textarea id="customerAddress" name="customerAddress" rows="4" required></textarea>
+
+            <button type="submit">Submit Order</button>
+        </form>
+    </main>
+
+    <footer>
+        Catalina Restaurant — Order Page
+    </footer>
+</div>
+
+<script src="/scripts/script.js" defer></script>
+</body>
+</html>

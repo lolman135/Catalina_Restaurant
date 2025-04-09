@@ -9,6 +9,7 @@
 <body>
 
 <div class="wrapper">
+
   <header>
     <h1>Catalina Restaurant</h1>
   </header>
@@ -21,7 +22,20 @@
         <p th:text="${item.description}"></p>
         <span class="price" th:text="'Price: ₴' + ${item.price}"></span>
         <br>
-        <button type="submit" class="add_to_cart">add to cart</button>
+        <form action="/catalina-restaurant/add-to-cart" method="post">
+          <div>
+            <input type="hidden" name="itemId" th:value="${item.id}" />
+
+            <label th:for="'quantity-' + ${item.id}">quantity:</label>
+            <div class="quantity-container">
+              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(-1, ' + ${item.id} + ')'">−</button>
+              <input type="number" class="quantity-input" th:id="'quantity-' + ${item.id}" name="quantity" min="1" value="1" readonly required />
+              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
+            </div>
+
+            <button type="submit" class="add_to_cart">add to cart</button>
+          </div>
+        </form>
       </div>
     </div>
   </main>
@@ -29,6 +43,7 @@
   <footer>
     Course work. American and mexican restaurant
   </footer>
+
 </div>
 
 <script src="/scripts/script.js" defer></script>

@@ -1,4 +1,4 @@
-package com.coursework.app.catalinarestaurant.repository;
+package com.coursework.app.catalinarestaurant.repository.order;
 
 import com.coursework.app.catalinarestaurant.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

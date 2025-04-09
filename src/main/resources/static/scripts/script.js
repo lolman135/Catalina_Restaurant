@@ -12,3 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function changeQuantity(change, itemId) {
+    const input = document.getElementById('quantity-' + itemId);
+    let value = parseInt(input.value) + change;
+    if (value < 1) value = 1;
+    input.value = value;
+}

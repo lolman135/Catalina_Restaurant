@@ -1,8 +1,7 @@
 package com.coursework.app.catalinarestaurant.service.order;
 
 import com.coursework.app.catalinarestaurant.entity.Order;
-import com.coursework.app.catalinarestaurant.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.coursework.app.catalinarestaurant.repository.order.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service("OrderServiceImpl")
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public boolean deleteById(Long id) {

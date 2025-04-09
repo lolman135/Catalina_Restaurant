@@ -32,7 +32,7 @@ header {
 }
 
 header h1 {
-    font-family: "American Typewriter", serif;
+    font-family: Arial, sans-serif;
     line-height: 1;
     margin: 0;
 }
@@ -150,6 +150,53 @@ footer {
     color: #d9534f;
 }
 
+.quantity-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.quantity-btn {
+    width: 25px;
+    height: 25px;
+    background-color: rgba(200, 200, 200, 0);
+    color: black;
+    border-radius: 15px;
+    border: 1px solid #222222;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.quantity-input {
+    width: 50px;
+    height: 25px;
+    text-align: center;
+    border: 0;
+    background: rgba(200, 200, 200, 0);
+    cursor: default;
+    font-size: 14px;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-input:focus {
+    outline: none;
+}
+
 @media (max-width: 1240px) {
     .menu-container {
         max-width: 800px;
@@ -218,6 +265,28 @@ footer {
 
     .menu-details p {
         font-size: 14px;
+    }
+
+    .quantity-container {
+        gap: 8px;
+    }
+
+    .quantity-btn {
+        min-width: 35px;
+        min-height: 35px;
+        font-size: 15px;
+        /*line-height: 35px;*/
+        border-radius: 30px;
+    }
+
+    #quantity {
+        width: 60px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    label[for="quantity"] {
+        font-size: 16px;
     }
 
     .price {
