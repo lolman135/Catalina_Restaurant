@@ -15,7 +15,12 @@
     </header>
 
     <main>
+
         <form action=/catalina-restaurant/order/register method="post" class="order-form-wrapper">
+            <h2>Ordered dishes</h2>
+            <ul>
+                <li th:each="string: ${stringList}" th:utext="${string}"></li>
+            </ul>
             <h2>Customer Information</h2>
 
             <label for="customerName">Name:</label>
@@ -28,6 +33,8 @@
             <textarea id="customerAddress" name="customerAddress" rows="4" required></textarea>
 
             <button type="submit">Submit Order</button>
+
+
         </form>
     </main>
 

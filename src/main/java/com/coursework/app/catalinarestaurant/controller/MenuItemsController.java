@@ -2,13 +2,15 @@ package com.coursework.app.catalinarestaurant.controller;
 
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/catalina-restaurant")
@@ -21,12 +23,14 @@ public class MenuItemsController {
     }
 
     @GetMapping("/menu")
-    public String showMainPage(Model model){
+    public String showMainPage(Model model, HttpSession httpSession) {
         List<MenuItem> menuItemList = menuItemService.findAll();
-        for (int i = 0; i < 2; i++) {
-            menuItemService.findAll().forEach(element -> menuItemList.add(element));
+        Map<Long, Integer> cart = (Map<Long, Integer>) httpSession.getAttribute("cart");
+        if (cart == null){
+            cart = new HashMap<>();
         }
         model.addAttribute("menuItemList", menuItemList);
+        model.addAttribute("cart", cart);
         return "menu-page";
     }
 }

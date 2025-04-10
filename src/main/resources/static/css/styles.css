@@ -28,12 +28,22 @@ header {
     padding: 20px 0;
     font-size: 36px;
     text-align: center;
+    position: relative;
 }
 
 header h1 {
     font-family: Arial, sans-serif;
     line-height: 1;
     margin: 0;
+}
+
+.cart-img {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
 }
 
 main {
@@ -224,6 +234,61 @@ footer {
     outline: none;
 }
 
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 70%;
+    max-width: 400px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.popup-close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup-close-btn:hover {
+    background-color: #d14541;
+}
+
+.popup-close-btn:active {
+    background-color: firebrick;
+}
+
 @media (max-width: 1240px) {
     .menu-container {
         max-width: 800px;
@@ -252,11 +317,6 @@ footer {
         max-width: 400px;
     }
 
-    header {
-        font-size: 20px;
-        padding: 25px 0;
-    }
-
     footer {
         font-size: medium;
     }
@@ -272,6 +332,21 @@ footer {
 
     .error-container p {
         font-size: 14px;
+    }
+
+    header {
+        text-align: center;
+        padding: 10px 60px;
+    }
+
+    header h1 {
+        font-size: 45px;
+    }
+
+    .cart {
+        width: 45px;
+        height: 45px;
+        right: 8px;
     }
 }
 
@@ -295,8 +370,21 @@ footer {
     }
 
     header {
-        font-size: 18px;
-        padding: 25px 0;
+        text-align: left;
+        padding: 20px 10px;
+    }
+
+    header h1 {
+        font-size: 35px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cart {
+        width: 35px;
+        height: 35px;
+        right: 5px;
     }
 
     .menu-details h2 {

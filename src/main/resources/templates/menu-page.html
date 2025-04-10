@@ -12,6 +12,9 @@
 
     <header>
         <h1>Catalina Restaurant</h1>
+        <div th:if="${not #maps.isEmpty(cart)}">
+            <a href="/catalina-restaurant/order/new"><img src="/static/images/cart.png" alt="cart.png" class="cart-img"></a>
+        </div>
     </header>
 
     <main class="menu-container">
@@ -22,7 +25,7 @@
                 <p th:text="${item.description}"></p>
                 <span class="price" th:text="'Price: ₴' + ${item.price}"></span>
                 <br>
-                <form action="/catalina-restaurant/add-to-cart" method="post">
+                <form action="/catalina-restaurant/add-to-cart" method="post" onsubmit="return showPopup(event, this)">
                       <div>
                           <input type="hidden" name="itemId" th:value="${item.id}" />
 
@@ -47,5 +50,16 @@
 </div>
 
 <script src="/scripts/script.js" defer></script>
+
+<div id="cartPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h3>Item Added to Cart</h3>
+        <p id="popupItemName"></p>
+        <p id="popupQuantity"></p>
+        <p id="popupPrice"></p>
+        <button onclick="window.location.href='/catalina-restaurant/menu'" class="popup-close-btn">Continue Shopping</button>
+    </div>
+</div>
 </body>
 </html>

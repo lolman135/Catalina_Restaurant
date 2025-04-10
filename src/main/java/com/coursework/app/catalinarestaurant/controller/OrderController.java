@@ -1,10 +1,12 @@
 package com.coursework.app.catalinarestaurant.controller;
 
 import com.coursework.app.catalinarestaurant.dto.order.OrderDto;
+import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.mapper.order.OrderMapper;
-import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
 import com.coursework.app.catalinarestaurant.service.order.OrderService;
+import com.coursework.app.catalinarestaurant.utils.mapGenerator.MenuItemsWithQuantityGenerator;
+import com.coursework.app.catalinarestaurant.utils.stringGenerator.CartInfoGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +20,15 @@ import java.util.Map;
 public class OrderController {
 
     private final OrderMapper orderMapper;
-    private final MenuItemService menuItemService;
+    private final MenuItemsWithQuantityGenerator generator;
     private final OrderService orderService;
 
-    public OrderController(MenuItemService menuItemService, OrderMapper orderMapper, OrderService orderService) {
-        this.menuItemService = menuItemService;
+    public OrderController(
+            MenuItemsWithQuantityGenerator generator,
+            OrderMapper orderMapper,
+            OrderService orderService)
+    {
+        this.generator = generator;
         this.orderMapper = orderMapper;
         this.orderService = orderService;
     }
@@ -43,8 +49,12 @@ public class OrderController {
     }
 
     @GetMapping("/order/new")
-    public String newOrder(Model model){
-        model.addAttribute("menuItems", menuItemService.findAll());
+    public String newOrder(
+            Model model,
+            @ModelAttribute("cart") HashMap<Long, Integer> cart)
+    {
+        Map<MenuItem, Integer> menuItemIntegerMap = generator.getMap(cart);
+        model.addAttribute("stringList", CartInfoGenerator.getInfo(menuItemIntegerMap));
         return "order-creation-form";
     }
 
@@ -55,6 +65,12 @@ public class OrderController {
     {
         Order order = orderMapper.toEntity(orderDto, cart);
         orderService.save(order);
+        cart.clear();
+        return "redirect:/catalina-restaurant/menu";
+    }
+
+    @PostMapping("/order/clean-cart")
+    public String cleanCart(@ModelAttribute("cart") Map<Long, Integer> cart){
         cart.clear();
         return "redirect:/catalina-restaurant/menu";
     }

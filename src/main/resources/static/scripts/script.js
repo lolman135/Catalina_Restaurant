@@ -19,3 +19,38 @@ function changeQuantity(change, itemId) {
     if (value < 1) value = 1;
     input.value = value;
 }
+
+function showPopup(event, form) {
+    event.preventDefault();
+
+    const itemId = form.querySelector('input[name="itemId"]').value;
+    const quantity = form.querySelector('.quantity-input').value;
+    const menuItem = document.getElementById(itemId);
+    const itemName = menuItem.querySelector('h2').textContent;
+    const itemPrice = menuItem.querySelector('.price').textContent;
+
+    document.getElementById('popupItemName').textContent = itemName;
+    document.getElementById('popupQuantity').textContent = `Quantity: ${quantity}`;
+    document.getElementById('popupPrice').textContent = itemPrice;
+
+    document.getElementById('cartPopup').style.display = 'block';
+
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    return false;
+}
+
+function closePopup() {
+    document.getElementById('cartPopup').style.display = 'none';
+}
