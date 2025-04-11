@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalina Restaurant Menu</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/menu-style.css">
 </head>
 <body>
 
@@ -23,7 +24,7 @@
             <div class="menu-details">
                 <h2 th:text="${item.name}"></h2>
                 <p th:text="${item.description}"></p>
-                <span class="price" th:text="'Price: ₴' + ${item.price}"></span>
+                <span class="price" th:text="'Price: ' + ${item.price} + ' ₴'"></span>
                 <br>
                 <form action="/catalina-restaurant/add-to-cart" method="post" onsubmit="return showPopup(event, this)">
                       <div>
@@ -36,7 +37,7 @@
                               <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
                           </div>
 
-                          <button type="submit" class="add_to_cart">add to cart</button>
+                          <button type="submit" class="submit-button">add to cart</button>
                       </div>
                 </form>
             </div>
@@ -58,7 +59,7 @@
         <p id="popupItemName"></p>
         <p id="popupQuantity"></p>
         <p id="popupPrice"></p>
-        <button onclick="window.location.href='/catalina-restaurant/menu'" class="popup-close-btn">Continue Shopping</button>
+        <button onclick="window.location.href='/catalina-restaurant/menu'" class="submit-button">Continue</button>
     </div>
 </div>
 </body>

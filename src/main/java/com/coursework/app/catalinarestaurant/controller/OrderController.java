@@ -6,7 +6,7 @@ import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.mapper.order.OrderMapper;
 import com.coursework.app.catalinarestaurant.service.order.OrderService;
 import com.coursework.app.catalinarestaurant.utils.mapGenerator.MenuItemsWithQuantityGenerator;
-import com.coursework.app.catalinarestaurant.utils.stringGenerator.CartInfoGenerator;
+import com.coursework.app.catalinarestaurant.utils.infoGenerator.CartInfoGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +54,8 @@ public class OrderController {
             @ModelAttribute("cart") HashMap<Long, Integer> cart)
     {
         Map<MenuItem, Integer> menuItemIntegerMap = generator.getMap(cart);
-        model.addAttribute("stringList", CartInfoGenerator.getInfo(menuItemIntegerMap));
+        model.addAttribute("stringList", CartInfoGenerator.getDishInfo(menuItemIntegerMap));
+        model.addAttribute("totalPrice", CartInfoGenerator.getTotalPriceInfo(menuItemIntegerMap));
         return "order-creation-form";
     }
 

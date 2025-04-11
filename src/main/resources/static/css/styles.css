@@ -37,15 +37,6 @@ header h1 {
     margin: 0;
 }
 
-.cart-img {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-}
-
 main {
     padding-left: 50px;
     padding-right: 50px;
@@ -60,28 +51,6 @@ footer {
     text-align: center;
     padding: 10px 0;
     flex-shrink: 0;
-}
-
-.add_to_cart {
-    font-size: larger;
-    border-radius: 10px;
-    border-width: 0;
-    background-color: #d9534f;
-    color: white;
-    margin: 5px 5px 15px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    width: calc(100% - 10px);
-}
-
-.add_to_cart:hover {
-    background-color: #d14541;
-    color: whitesmoke;
-}
-
-.add_to_cart:active {
-    background-color: firebrick;
-    color: #e8e8e8;
 }
 
 .wrapper {
@@ -108,116 +77,6 @@ footer {
     margin: 10px auto;
 }
 
-.menu-item {
-    position: relative;
-    min-height: 300px;
-    width: 300px;
-    background: rgba(200, 200, 200, 0.75);
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s;
-    margin: 0 auto;
-}
-
-.menu-item:hover {
-    transform: scale(1.05);
-}
-
-.menu-image {
-    width: 93%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    margin: 10px;
-    border-radius: 10px;
-}
-
-.menu-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out;
-    margin-top: 0;
-    padding: 0 10px;
-}
-
-.menu-details h2 {
-    margin: 0 0 10px;
-    font-size: 20px;
-}
-
-.menu-details p {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: #555;
-}
-
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #d9534f;
-}
-
-.quantity-container {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-.quantity-btn {
-    width: 25px;
-    height: 25px;
-    background-color: rgba(200, 200, 200, 0);
-    color: black;
-    border-radius: 15px;
-    border: 1px solid #222222;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: background-color 0.2s;
-}
-
-.quantity-btn:hover {
-    background-color: #e0e0e0;
-}
-
-.quantity-input {
-    width: 50px;
-    height: 25px;
-    text-align: center;
-    border: 0;
-    background: rgba(200, 200, 200, 0);
-    cursor: default;
-    font-size: 14px;
-    -moz-appearance: textfield;
-}
-
-.quantity-input::-webkit-outer-spin-button,
-.quantity-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.error-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(200, 200, 200, 0.75);
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-    min-height: 200px;
-}
-
 .error-container h2 {
     font-size: 24px;
     margin: 0 0 15px;
@@ -230,63 +89,26 @@ footer {
     color: #555;
 }
 
-.quantity-input:focus {
-    outline: none;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    width: 70%;
-    max-width: 400px;
+.submit-button {
+    font-size: larger;
     border-radius: 10px;
-    position: relative;
-    text-align: center;
-}
-
-.close {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-}
-
-.close:hover {
-    color: #000;
-}
-
-.popup-close-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
+    border-width: 0;
     background-color: #d9534f;
     color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
+    margin: 5px 5px 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: calc(100% - 10px);
 }
 
-.popup-close-btn:hover {
+.submit-button:hover {
     background-color: #d14541;
+    color: whitesmoke;
 }
 
-.popup-close-btn:active {
+.submit-button:active {
     background-color: firebrick;
+    color: #e8e8e8;
 }
 
 @media (max-width: 1240px) {
@@ -312,26 +134,8 @@ footer {
         row-gap: 20px;
     }
 
-    .menu-item {
-        width: 100%;
-        max-width: 400px;
-    }
-
     footer {
         font-size: medium;
-    }
-
-    .error-container {
-        max-width: 400px;
-        padding: 15px;
-    }
-
-    .error-container h2 {
-        font-size: 20px;
-    }
-
-    .error-container p {
-        font-size: 14px;
     }
 
     header {
@@ -343,11 +147,6 @@ footer {
         font-size: 45px;
     }
 
-    .cart {
-        width: 45px;
-        height: 45px;
-        right: 8px;
-    }
 }
 
 @media (max-width: 430px) {
@@ -357,16 +156,6 @@ footer {
         padding: 10px;
         max-width: none;
         width: 100%;
-    }
-
-    .menu-item {
-        width: 100%;
-        max-width: 100%;
-        min-height: 100%;
-    }
-
-    .menu-image {
-        min-width: 95%;
     }
 
     header {
@@ -381,46 +170,6 @@ footer {
         text-overflow: ellipsis;
     }
 
-    .cart {
-        width: 35px;
-        height: 35px;
-        right: 5px;
-    }
-
-    .menu-details h2 {
-        font-size: 18px;
-    }
-
-    .menu-details p {
-        font-size: 14px;
-    }
-
-    .quantity-container {
-        gap: 8px;
-    }
-
-    .quantity-btn {
-        min-width: 35px;
-        min-height: 35px;
-        font-size: 15px;
-        /*line-height: 35px;*/
-        border-radius: 30px;
-    }
-
-    #quantity {
-        width: 60px;
-        height: 35px;
-        font-size: 16px;
-    }
-
-    label[for="quantity"] {
-        font-size: 16px;
-    }
-
-    .price {
-        font-size: 16px;
-    }
-
     main {
         padding-left: 10px;
         padding-right: 10px;
@@ -430,21 +179,7 @@ footer {
         font-size: medium;
     }
 
-    .error-container {
-        max-width: 100%;
-        padding: 10px;
-        border-radius: 15px;
-    }
-
-    .error-container h2 {
-        font-size: 18px;
-    }
-
-    .error-container p {
-        font-size: 12px;
-    }
-
-    .add_to_cart {
+    .submit-button{
         font-size: medium;
         padding: 8px 0;
     }

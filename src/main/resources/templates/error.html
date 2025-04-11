@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error - Catalina Restaurant</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/error-style.css">
 </head>
 <body>
 
@@ -19,7 +20,7 @@
             <h2>Oops! Something Went Wrong</h2>
             <p th:text="${message != null ? message : 'An unexpected error occurred.'}"></p>
             <p th:if="${status != null}">Error Code: <span th:text="${status}"></span></p>
-            <button onclick="window.location.href='/catalina-restaurant/menu'" class="add_to_cart" type="button">Back to Menu</button>
+            <button onclick="window.location.href='/catalina-restaurant/menu'" class="submit-button" type="button">Back to Menu</button>
         </div>
     </main>
 

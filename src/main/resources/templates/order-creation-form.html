@@ -15,27 +15,34 @@
     </header>
 
     <main>
+        <div class="order-form-wrapper">
+            <form action="/catalina-restaurant/order/clean-cart" method="post" class="clean-cart-form">
+                <button type="submit" class="clean-cart-button">✕</button>
+            </form>
+            <form action=/catalina-restaurant/order/register method="post">
+                <h2>Ordered dishes</h2>
+                <ul>
+                    <li th:each="string: ${stringList}" th:utext="${string}"></li>
+                </ul>
 
-        <form action=/catalina-restaurant/order/register method="post" class="order-form-wrapper">
-            <h2>Ordered dishes</h2>
-            <ul>
-                <li th:each="string: ${stringList}" th:utext="${string}"></li>
-            </ul>
-            <h2>Customer Information</h2>
+                <p th:text="'Total price: ' + ${totalPrice} + ' ₴'" class="total-price"></p>
+                <hr>
+                <h2>Customer Information</h2>
 
-            <label for="customerName">Name:</label>
-            <input type="text" id="customerName" name="customerName" required>
+                <label for="customerName">Name:</label>
+                <input type="text" id="customerName" name="customerName" required>
 
-            <label for="customerPhone">Phone:</label>
-            <input type="text" id="customerPhone" name="customerPhone" required>
+                <label for="customerPhone">Phone:</label>
+                <input type="text" id="customerPhone" name="customerPhone" required>
 
-            <label for="customerAddress">Address:</label>
-            <textarea id="customerAddress" name="customerAddress" rows="4" required></textarea>
+                <label for="customerAddress">Address:</label>
+                <textarea id="customerAddress" name="customerAddress" rows="4" required></textarea>
 
-            <button type="submit">Submit Order</button>
+                <button type="submit" class="submit-button">Submit Order</button>
 
+            </form>
+        </div>
 
-        </form>
     </main>
 
     <footer>
