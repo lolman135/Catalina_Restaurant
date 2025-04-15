@@ -1,6 +1,7 @@
 package com.coursework.app.catalinarestaurant.utils.infoGenerator;
 
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
+import com.coursework.app.catalinarestaurant.utils.number.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class CartInfoGenerator {
                     .append("<b>")
                     .append(item.getName())
                     .append(":</b> ")
-                    .append(item.getPrice())
+                    .append(String.format("%.2f", item.getPrice()))
                     .append(" ×")
                     .append(quantity)
                     .toString());
@@ -25,9 +26,9 @@ public class CartInfoGenerator {
     }
 
     public static double getTotalPriceInfo(Map<MenuItem, Integer> map){
-         return  map.entrySet().stream()
+         return NumberUtils.round(map.entrySet().stream()
                 .mapToDouble(
                         entry -> entry.getKey()
-                                .getPrice() * entry.getValue()).sum();
+                                .getPrice() * entry.getValue()).sum(), 2);
     }
 }

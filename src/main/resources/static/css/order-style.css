@@ -70,6 +70,21 @@
     background: transparent !important;
 }
 
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+.error-messages {
+    margin-bottom: 20px;
+}
+
 @media (max-width: 600px) {
     .order-form-wrapper {
         padding: 20px;

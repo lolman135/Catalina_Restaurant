@@ -15,31 +15,44 @@
     </header>
 
     <main>
+
         <div class="order-form-wrapper">
             <form action="/catalina-restaurant/order/clean-cart" method="post" class="clean-cart-form">
                 <button type="submit" class="clean-cart-button">✕</button>
             </form>
-            <form action=/catalina-restaurant/order/register method="post">
+
+            <form th:object="${order}" th:action="@{/catalina-restaurant/order/register}" method="post">
                 <h2>Ordered dishes</h2>
                 <ul>
-                    <li th:each="string: ${stringList}" th:utext="${string}"></li>
+                    <li th:each="string : ${stringList}" th:utext="${string}"></li>
                 </ul>
-
                 <p th:text="'Total price: ' + ${totalPrice} + ' ₴'" class="total-price"></p>
                 <hr>
                 <h2>Customer Information</h2>
 
-                <label for="customerName">Name:</label>
-                <input type="text" id="customerName" name="customerName" required>
+                <div class="form-field">
+                    <label for="customerName">Name:</label>
+                    <input type="text" th:field="*{customerName}" id="customerName" placeholder="..."
+                           minlength="2" maxlength="50" required>
+                    <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="error"></span>
+                </div>
 
-                <label for="customerPhone">Phone:</label>
-                <input type="text" id="customerPhone" name="customerPhone" required>
+                <div class="form-field">
+                    <label for="customerPhone">Phone:</label>
+                    <input type="text" th:field="*{customerPhone}" id="customerPhone" value="+380"
+                           placeholder="+380XXXXXXXXX" pattern="\+380\d{9}"
+                           title="Enter valid phone number: +380 followed by 9 digits" required>
+                    <span th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}" class="error"></span>
+                </div>
 
-                <label for="customerAddress">Address:</label>
-                <textarea id="customerAddress" name="customerAddress" rows="4" required></textarea>
+                <div class="form-field">
+                    <label for="customerAddress">Address:</label>
+                    <textarea th:field="*{customerAddress}" id="customerAddress" rows="4"
+                              minlength="10" maxlength="255" required></textarea>
+                    <span th:if="${#fields.hasErrors('customerAddress')}" th:errors="*{customerAddress}" class="error"></span>
+                </div>
 
                 <button type="submit" class="submit-button">Submit Order</button>
-
             </form>
         </div>
 

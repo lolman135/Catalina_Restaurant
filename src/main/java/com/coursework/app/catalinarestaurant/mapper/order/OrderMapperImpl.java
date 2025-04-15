@@ -6,6 +6,7 @@ import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.entity.OrderItem;
 import com.coursework.app.catalinarestaurant.entity.OrderStatus;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
+import com.coursework.app.catalinarestaurant.utils.number.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
@@ -39,9 +40,9 @@ public class OrderMapperImpl implements OrderMapper {
         orderItems.forEach(orderItem -> orderItem.setOrder(newOrder));
         newOrder.setOrderItems(orderItems);
 
-        double totalPrice = orderItems.stream()
+        double totalPrice = NumberUtils.round(orderItems.stream()
                 .mapToDouble(item -> item.getMenuItem().getPrice() * item.getQuantity())
-                .sum();
+                .sum(), 2);
 
         newOrder.setTotalPrice(totalPrice);
         return newOrder;

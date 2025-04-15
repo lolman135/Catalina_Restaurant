@@ -7,8 +7,10 @@ import com.coursework.app.catalinarestaurant.mapper.order.OrderMapper;
 import com.coursework.app.catalinarestaurant.service.order.OrderService;
 import com.coursework.app.catalinarestaurant.utils.mapGenerator.MenuItemsWithQuantityGenerator;
 import com.coursework.app.catalinarestaurant.utils.infoGenerator.CartInfoGenerator;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -53,21 +55,27 @@ public class OrderController {
             Model model,
             @ModelAttribute("cart") HashMap<Long, Integer> cart)
     {
-        Map<MenuItem, Integer> menuItemIntegerMap = generator.getMap(cart);
-        model.addAttribute("stringList", CartInfoGenerator.getDishInfo(menuItemIntegerMap));
-        model.addAttribute("totalPrice", CartInfoGenerator.getTotalPriceInfo(menuItemIntegerMap));
+        model.addAttribute("order", new OrderDto("", "", ""));
+        addCartAttribute(model, cart);
         return "order-creation-form";
     }
 
     @PostMapping("/order/register")
     public String registerOrder(
-            @ModelAttribute("order") OrderDto orderDto,
-            @ModelAttribute("cart") Map<Long, Integer> cart)
+            @Valid @ModelAttribute("order") OrderDto orderDto,
+            BindingResult result,
+            @ModelAttribute("cart") Map<Long, Integer> cart,
+            Model model)
     {
+        if (result.hasErrors()){
+            model.addAttribute("order", orderDto);
+            addCartAttribute(model, cart);
+            return "order-creation-form";
+        }
         Order order = orderMapper.toEntity(orderDto, cart);
         orderService.save(order);
         cart.clear();
-        return "redirect:/catalina-restaurant/menu";
+        return "redirect:/catalina-restaurant/order/success";
     }
 
     @PostMapping("/order/clean-cart")
@@ -75,4 +83,16 @@ public class OrderController {
         cart.clear();
         return "redirect:/catalina-restaurant/menu";
     }
+
+    @GetMapping("/order/success")
+    public String success(){
+        return "success";
+    }
+
+    private void addCartAttribute(Model model, Map<Long, Integer> cart){
+        Map<MenuItem, Integer> menuItemIntegerMap = generator.getMap(cart);
+        model.addAttribute("stringList", CartInfoGenerator.getDishInfo(menuItemIntegerMap));
+        model.addAttribute("totalPrice", CartInfoGenerator.getTotalPriceInfo(menuItemIntegerMap));
+    }
+
 }
