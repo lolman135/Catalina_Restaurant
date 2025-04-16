@@ -39,9 +39,9 @@
 
                 <div class="form-field">
                     <label for="customerPhone">Phone:</label>
-                    <input type="text" th:field="*{customerPhone}" id="customerPhone" value="+380"
+                    <input type="text" th:field="*{customerPhone}" id="customerPhone"
                            placeholder="+380XXXXXXXXX" pattern="\+380\d{9}"
-                           title="Enter valid phone number: +380 followed by 9 digits" required>
+                           title="Enter valid phone number: +380 followed by 9 digits" value="+380" required>
                     <span th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}" class="error"></span>
                 </div>
 

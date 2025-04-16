@@ -1,5 +1,6 @@
 package com.coursework.app.catalinarestaurant.entity;
 
+import com.coursework.app.catalinarestaurant.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,10 +30,14 @@ public class MenuItem {
     @Column(name = "image_url")
     private String imageUrl;
 
-    public MenuItem(String name, String description, String imageUrl, double price) {
+    @Column(name = "category")
+    private Category category;
+
+    public MenuItem(String name, String description, String imageUrl, double price, Category category) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
+        this.category = category;
     }
 }

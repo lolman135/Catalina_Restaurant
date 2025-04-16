@@ -4,7 +4,7 @@ import com.coursework.app.catalinarestaurant.dto.order.OrderDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.entity.OrderItem;
-import com.coursework.app.catalinarestaurant.entity.OrderStatus;
+import com.coursework.app.catalinarestaurant.enums.OrderStatus;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
 import com.coursework.app.catalinarestaurant.utils.number.NumberUtils;
 import org.springframework.stereotype.Component;

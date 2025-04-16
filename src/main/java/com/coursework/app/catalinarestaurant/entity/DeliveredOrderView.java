@@ -1,5 +1,6 @@
 package com.coursework.app.catalinarestaurant.entity;
 
+import com.coursework.app.catalinarestaurant.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;

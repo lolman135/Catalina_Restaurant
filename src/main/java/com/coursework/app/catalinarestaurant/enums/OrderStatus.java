@@ -1,4 +1,4 @@
-package com.coursework.app.catalinarestaurant.entity;
+package com.coursework.app.catalinarestaurant.enums;
 
 public enum OrderStatus {
     PENDING,
