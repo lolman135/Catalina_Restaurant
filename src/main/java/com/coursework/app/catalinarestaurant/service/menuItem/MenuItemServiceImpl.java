@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service("MenuItemServiceImpl")
+@Service
 public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
@@ -42,7 +42,6 @@ public class MenuItemServiceImpl implements MenuItemService {
         if (id == null){
             throw new IllegalArgumentException("Wrong id provided!");
         }
-        Optional<MenuItem> item = menuItemRepository.findById(id);
-        return item.orElse(null);
+        return menuItemRepository.findById(id).orElse(null);
     }
 }

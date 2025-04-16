@@ -5,9 +5,8 @@ import com.coursework.app.catalinarestaurant.repository.order.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service("OrderServiceImpl")
+@Service
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -32,9 +31,7 @@ public class OrderServiceImpl implements OrderService {
         if (id == null){
             throw new IllegalArgumentException("Wrong id provided!");
         }
-        Optional<Order> order = orderRepository.findById(id);
-        return order.orElse(null);
-
+        return orderRepository.findById(id).orElse(null);
     }
 
     @Override
