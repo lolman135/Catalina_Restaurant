@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order management</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+<header>
+    <h1>Management Panel </h1>
+    <nav>
+        <a href="/admin/orders" class="nav-link active">Orders</a>
+        <a href="/admin/menu" class="nav-link">Menu</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Order Management</h1>
+
+    <div class="toggle-container">
+        <a th:href="@{/catalina-restaurant/admin/orders/statistic(type='canceled')}"
+           th:class="${type == 'canceled'} ? 'toggle-btn active' : 'toggle-btn'">Canceled Orders</a>
+        <a th:href="@{/catalina-restaurant/admin/orders/statistic(type='delivered')}"
+           th:class="${type == 'delivered'} ? 'toggle-btn active' : 'toggle-btn'">Delivered Orders</a>
+    </div>
+
+    <table class="order-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client name</th>
+            <th>Phone number</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Total price</th>
+            <th>Creation time</th>
+            <th>Dishes</th>
+            <th>Deletion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.customerPhone}"></td>
+            <td th:text="${order.customerAddress}"></td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/orders/update/' + ${order.id}}" th:method="put">
+                    <select name="orderStatus" class="status-select" onchange="this.form.submit()">
+                        <option th:each="status : ${T(com.coursework.app.catalinarestaurant.enums.OrderStatus).values()}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${order.orderStatus != null and order.orderStatus == status}">
+                        </option>
+                    </select>
+                </form>
+            </td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:text="${order.createdAt}"></td>
+            <td>
+                <ul class="order-items">
+                    <li th:each="item : ${order.orderItems}" th:text="${item.menuItem.name} + ': ×' + ${item.quantity}"></li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/orders/delete/' + ${order.id}}" th:method="delete">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer>
+    <p>© 2025 Course work. American and mexican restaurant</p>
+</footer>
+</body>
+</html>

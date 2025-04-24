@@ -55,7 +55,7 @@ public class OrderController {
             Model model,
             @ModelAttribute("cart") HashMap<Long, Integer> cart)
     {
-        model.addAttribute("order", new OrderDto("", "", ""));
+        model.addAttribute("order", new OrderDto("", "+380", ""));
         addCartAttribute(model, cart);
         return "order-creation-form";
     }

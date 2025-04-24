@@ -54,3 +54,17 @@ function showPopup(event, form) {
 function closePopup() {
     document.getElementById('cartPopup').style.display = 'none';
 }
+
+document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', () => {
+        select.form.submit();
+    });
+});
+
+function initStatusSelects() {
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', () => {
+            select.form.submit();
+        });
+    });
+}

@@ -2,11 +2,17 @@ package com.coursework.app.catalinarestaurant.entity;
 
 import com.coursework.app.catalinarestaurant.enums.OrderStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "delivered_orders")
+@Getter
+@Setter
+@NoArgsConstructor
 public class DeliveredOrderView {
 
     @Id

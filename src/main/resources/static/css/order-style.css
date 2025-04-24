@@ -85,6 +85,10 @@
     margin-bottom: 20px;
 }
 
+textarea {
+    font-family: Arial, sans-serif;
+}
+
 @media (max-width: 600px) {
     .order-form-wrapper {
         padding: 20px;

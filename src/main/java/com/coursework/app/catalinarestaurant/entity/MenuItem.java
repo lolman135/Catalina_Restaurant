@@ -30,6 +30,7 @@ public class MenuItem {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
 

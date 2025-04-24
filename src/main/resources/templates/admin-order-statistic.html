@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Statistics</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header>
+    <h1>Admin Panel</h1>
+</header>
+
+<main>
+    <h1>Order Statistics</h1>
+    <div class="toggle-container">
+        <a href="/catalina-restaurant/admin/orders" class="nav-btn">Back to Orders</a>
+    </div>
+    <table class="order-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Total Price</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderView : ${orderViews}">
+            <td th:text="${orderView.id}"></td>
+            <td th:text="${orderView.customerName}"></td>
+            <td th:text="${orderView.customerPhone}"></td>
+            <td th:text="${orderView.customerAddress}"></td>
+            <td th:text="${orderView.orderStatus}"></td>
+            <td th:text="${orderView.totalPrice}"></td>
+            <td th:text="${orderView.createdAt}"></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(orderViews)}">
+            <td colspan="7">No orders found</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer>
+    <p>© 2025 Restaurant. All rights reserved.</p>
+</footer>
+</body>
+</html>

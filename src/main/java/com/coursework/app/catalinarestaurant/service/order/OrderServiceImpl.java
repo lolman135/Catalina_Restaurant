@@ -1,7 +1,10 @@
 package com.coursework.app.catalinarestaurant.service.order;
 
 import com.coursework.app.catalinarestaurant.entity.Order;
+import com.coursework.app.catalinarestaurant.enums.OrderStatus;
 import com.coursework.app.catalinarestaurant.repository.order.OrderRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return orderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override
@@ -41,5 +44,15 @@ public class OrderServiceImpl implements OrderService {
         }
         orderRepository.save(order);
         return "Order added successfully";
+    }
+
+    @Override
+    @Transactional
+    public void updateStatusById(Long id, OrderStatus orderStatus) {
+        if (id == null){
+            throw new IllegalArgumentException("Wrong data provided!");
+        }
+
+        orderRepository.updateOrOrderStatusById(id, orderStatus);
     }
 }
