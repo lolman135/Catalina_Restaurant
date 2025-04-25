@@ -34,10 +34,9 @@ public class MenuItem {
     @Column(name = "category")
     private Category category;
 
-    public MenuItem(String name, String description, String imageUrl, double price, Category category) {
+    public MenuItem(String name, String description, double price, Category category) {
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
         this.price = price;
         this.category = category;
     }

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record OrderDto(
         @Pattern(
-                regexp = "^[А-Яа-яA-Za-zЁёІіЇїЪъ\\-\\s]{2,50}+$",
+                regexp = "^[А-Яа-яA-Za-zЁёІіЇїЪъЫы\\-\\s]{2,50}+$",
                 message = "Name should contains only letters and be at least 2 symbols long"
         )
         String customerName,
