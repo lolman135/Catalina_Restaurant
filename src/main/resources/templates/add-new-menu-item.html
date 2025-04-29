@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Menu Item</title>
+    <link rel="stylesheet" href="/static/css/admin.css?v=1">
+    <link rel="stylesheet" href="/static/css/order-style.css?v=1">
+</head>
+<body>
+<header>
+    <h1>Management Panel</h1>
+    <nav>
+        <a href="/catalina-restaurant/admin/orders" class="nav-link">Orders</a>
+        <a href="/catalina-restaurant/admin/menu" class="nav-link active">Menu</a>
+    </nav>
+</header>
+
+<main>
+    <div class="order-form-wrapper">
+        <form action="/catalina-restaurant/admin/menu" method="get" class="clean-cart-form">
+            <button type="submit" class="clean-cart-button">✕</button>
+        </form>
+
+        <h2>Add New Menu Item</h2>
+
+        <div th:if="${error}" class="error-messages" th:text="${error}"></div>
+
+        <form th:action="@{/catalina-restaurant/admin/menu/add}" th:object="${menuItemDto}" th:method="post" enctype="multipart/form-data">
+            <div class="form-field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:field="*{name}" required
+                       pattern="^[А-Яа-яA-Za-zЁёІіЇїЪъЫы\-\\s]{0,50}+$"
+                       title="Name should contain only letters, up to 50 characters">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+            </div>
+            <div class="form-field">
+                <label for="description">Description:</label>
+                <textarea id="description" th:field="*{description}" rows="3" required></textarea>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+            </div>
+            <div class="form-field">
+                <label for="price">Price:</label>
+                <input type="number" id="price" th:field="*{price}" step="0.01" min="0" required>
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></div>
+            </div>
+            <div class="form-field">
+                <label for="category">Category:</label>
+                <select id="category" th:field="*{category}" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option th:each="category : ${T(com.coursework.app.catalinarestaurant.enums.Category).values()}"
+                            th:value="${category}"
+                            th:text="${category}">
+                    </option>
+                </select>
+                <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error"></div>
+            </div>
+            <div class="form-field">
+                <label for="image">Image:</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="image" name="image" accept="image/jpeg,image/png" required
+                           th:field="*{file}">
+                    <label for="image" class="file-input-label">No file chosen</label>
+                    <div class="file-name"></div>
+                </div>
+                <div th:if="${#fields.hasErrors('file')}" th:errors="*{file}" class="error"></div>
+                <div class="preview-image-container" style="margin-top: 10px;"></div>
+            </div>
+            <button type="submit" class="submit-button">Add Menu Item</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 Course work. American and mexican restaurant</p>
+</footer>
+
+<script src="/scripts/script.js" defer></script>
+</body>
+</html>

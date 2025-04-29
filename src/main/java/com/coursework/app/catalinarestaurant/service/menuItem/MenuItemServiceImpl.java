@@ -1,28 +1,34 @@
 package com.coursework.app.catalinarestaurant.service.menuItem;
 
+import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.enums.Category;
+import com.coursework.app.catalinarestaurant.mapper.menuItem.MenuItemMapper;
 import com.coursework.app.catalinarestaurant.repository.menuItem.MenuItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
+    private final MenuItemMapper mapper;
 
-    public MenuItemServiceImpl(MenuItemRepository menuItemRepository) {
+    public MenuItemServiceImpl(MenuItemRepository menuItemRepository, MenuItemMapper mapper) {
         this.menuItemRepository = menuItemRepository;
+        this.mapper = mapper;
     }
 
     @Override
-    public String save(MenuItem menuItem) {
-        if (menuItem == null){
+    public String save(MenuItemDto request) throws IOException {
+        if (request == null){
             throw new IllegalArgumentException("Wrong data provided!");
         }
+        MenuItem menuItem = mapper.toEntity(request);
         menuItemRepository.save(menuItem);
         return "Dish successfully added to the menu";
     }

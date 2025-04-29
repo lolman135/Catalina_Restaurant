@@ -18,6 +18,11 @@
 <main>
     <h1>Menu Management</h1>
 
+    <div class="toggle-container">
+        <a th:href="@{/catalina-restaurant/admin/menu/new}"
+           th:class="${type == 'canceled'} ? 'toggle-btn active' : 'toggle-btn'">Add new dish</a>
+    </div>
+
     <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
     <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
 

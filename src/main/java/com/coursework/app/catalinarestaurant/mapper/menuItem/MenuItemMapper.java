@@ -6,5 +6,5 @@ import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import java.io.IOException;
 
 public interface MenuItemMapper {
-    MenuItem toMenuItem(MenuItemDto request) throws IOException;
+    MenuItem toEntity (MenuItemDto request) throws IOException;
 }

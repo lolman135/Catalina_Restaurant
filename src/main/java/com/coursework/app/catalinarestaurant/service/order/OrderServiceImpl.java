@@ -1,21 +1,26 @@
 package com.coursework.app.catalinarestaurant.service.order;
 
+import com.coursework.app.catalinarestaurant.dto.order.OrderDto;
 import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.enums.OrderStatus;
+import com.coursework.app.catalinarestaurant.mapper.order.OrderMapper;
 import com.coursework.app.catalinarestaurant.repository.order.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderMapper mapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper mapper) {
         this.orderRepository = orderRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -38,10 +43,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String save(Order order) {
-        if (order == null){
+    public String save(OrderDto request, Map<Long, Integer> cart) {
+        if (request == null){
             throw new IllegalArgumentException("Wrong data provided!");
         }
+        Order order = mapper.toEntity(request, cart);
         orderRepository.save(order);
         return "Order added successfully";
     }

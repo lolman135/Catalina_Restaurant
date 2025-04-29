@@ -1,13 +1,17 @@
 package com.coursework.app.catalinarestaurant.controller.admin;
 
+import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
+import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.enums.Category;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -98,8 +102,35 @@ public class MenuItemAdminController {
 
 
     @DeleteMapping("/delete/{id}")
-    public String deleteMenuItem(@RequestParam("id") Long id){
+    public String deleteMenuItem(@PathVariable("id") Long id){
         menuItemService.deleteById(id);
+        return "redirect:/catalina-restaurant/admin/menu";
+    }
+
+    @GetMapping("/new")
+    public String showNewDishForm(Model model){
+        MenuItemDto menuItemDto = new MenuItemDto("", "", 0.0, null, null);
+        model.addAttribute("menuItemDto", menuItemDto);
+        return "add-new-menu-item";
+    }
+
+    @PostMapping("/add")
+    public String addNewDish(
+            @Valid @ModelAttribute("menuItemDto") MenuItemDto request,
+            BindingResult result,
+            RedirectAttributes redirectAttributes){
+        if (result.hasErrors()){
+            redirectAttributes.addFlashAttribute("error",
+                    "Failed to create new dish: " + result.getAllErrors());
+            return "redirect:/catalina-restaurant/admin/menu/new";
+        }
+
+        try {
+            menuItemService.save(request);
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("error",
+                    "Failed to create new dish: " + e.getMessage());
+        }
         return "redirect:/catalina-restaurant/admin/menu";
     }
 }

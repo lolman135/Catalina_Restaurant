@@ -72,8 +72,7 @@ public class OrderController {
             addCartAttribute(model, cart);
             return "order-creation-form";
         }
-        Order order = orderMapper.toEntity(orderDto, cart);
-        orderService.save(order);
+        orderService.save(orderDto, cart);
         cart.clear();
         return "redirect:/catalina-restaurant/order/success";
     }

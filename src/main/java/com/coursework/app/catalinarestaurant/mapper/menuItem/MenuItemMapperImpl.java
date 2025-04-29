@@ -2,6 +2,7 @@ package com.coursework.app.catalinarestaurant.mapper.menuItem;
 
 import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,14 +10,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
-
 @Component
 public class MenuItemMapperImpl implements MenuItemMapper {
 
-    private static final String uploadPath = "media/dishes";
+    @Value("${app.upload.dir}")
+    private String uploadPath;
+
+    @Value("${app.upload.url.prefix}")
+    private String uploadUrlPrefix;
 
     @Override
-    public MenuItem toMenuItem(MenuItemDto request) throws IOException {
+    public MenuItem toEntity(MenuItemDto request) throws IOException {
         MenuItem menuItem = new MenuItem(request.name(), request.description(), request.price(), request.category());
 
         MultipartFile multipartFile = request.file();
@@ -38,7 +42,7 @@ public class MenuItemMapperImpl implements MenuItemMapper {
         File destination = new File(uploadDir, uniqueFileName);
         multipartFile.transferTo(destination);
 
-        String imageUrl = "/" + uploadPath.replace("\\", "/").concat("/").concat(uniqueFileName);
+        String imageUrl = uploadUrlPrefix + "/" + uniqueFileName;
         menuItem.setImageUrl(imageUrl);
         return menuItem;
     }

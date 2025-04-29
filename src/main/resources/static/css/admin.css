@@ -160,6 +160,7 @@ footer {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
+    font-family: Arial, sans-serif;
     resize: none;
     min-height: 30px;
     line-height: 1.5;
@@ -244,6 +245,28 @@ footer {
     background-color: #f2dede;
     color: #a94442;
     border: 1px solid #ebccd1;
+}
+
+.submit-button {
+    font-size: larger;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: #d9534f;
+    color: white;
+    margin: 5px 5px 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: calc(100% - 10px);
+}
+
+.submit-button:hover {
+    background-color: #d14541;
+    color: whitesmoke;
+}
+
+.submit-button:active {
+    background-color: firebrick;
+    color: #e8e8e8;
 }
 
 @media (max-width: 768px) {
