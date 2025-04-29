@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management</title>
+    <link rel="stylesheet" href="/static/css/admin.css?v=1">
+</head>
+<body>
+<header>
+    <h1>Management Panel</h1>
+    <nav>
+        <a href="/catalina-restaurant/admin/orders" class="nav-link">Orders</a>
+        <a href="/catalina-restaurant/admin/menu" class="nav-link active">Menu</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Menu Management</h1>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+    <table class="order-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Deletion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="menuItem : ${menuItems}">
+            <td style="width: 60px;">
+                <input type="text" name="id" class="id-field" th:value="${menuItem.id}" readonly>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/name'}" th:method="put">
+                    <input type="text" name="name" class="status-select" th:value="${menuItem.name}" onchange="this.form.submit()" required>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/description'}" th:method="put">
+                    <textarea name="description" class="status-select textarea-field" rows="1" th:text="${menuItem.description}" onchange="this.form.submit()" required></textarea>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/price'}" th:method="put">
+                    <input type="number" name="price" class="status-select" th:value="${menuItem.price}" step="0.01" onchange="this.form.submit()" required>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/category'}" th:method="put">
+                    <select name="category" class="status-select" onchange="this.form.submit()">
+                        <option th:each="category : ${T(com.coursework.app.catalinarestaurant.enums.Category).values()}"
+                                th:value="${category}"
+                                th:text="${category}"
+                                th:selected="${menuItem.category != null} ? ${menuItem.category == category} : false">
+                        </option>
+                    </select>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{'/catalina-restaurant/admin/menu/delete/' + ${menuItem.id}}" th:method="delete">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(menuItems)}">
+            <td colspan="6">No menu items found</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer>
+    <p>© 2025 Course work. American and mexican restaurant</p>
+</footer>
+
+<script src="/scripts/script.js" defer></script>
+
+</body>
+</html>

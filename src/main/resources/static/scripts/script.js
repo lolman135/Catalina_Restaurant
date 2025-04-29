@@ -68,3 +68,28 @@ function initStatusSelects() {
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const textareas = document.querySelectorAll('.textarea-field');
+
+    textareas.forEach(textarea => {
+        const adjustHeight = () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        };
+
+        adjustHeight();
+        textarea.addEventListener('input', adjustHeight);
+        textarea.addEventListener('change', adjustHeight);
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.display = 'none';
+        }, 5000);
+    });
+});

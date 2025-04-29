@@ -7,6 +7,7 @@ import com.coursework.app.catalinarestaurant.service.orderview.delivered.Deliver
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,9 +45,16 @@ public class OrderAdminController {
     @PutMapping("/update/{id}")
     public String updateStatus(
             @PathVariable Long id,
-            @RequestParam OrderStatus orderStatus
+            @RequestParam OrderStatus orderStatus,
+            RedirectAttributes redirectAttributes
     ){
-        orderService.updateStatusById(id, orderStatus);
+        try {
+            orderService.updateStatusById(id, orderStatus);
+            redirectAttributes.addFlashAttribute("success", "Status updated successfully");
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("error",
+                    "Failed to update price: " + e.getMessage());
+        }
         return "redirect:/catalina-restaurant/admin/orders";
     }
 

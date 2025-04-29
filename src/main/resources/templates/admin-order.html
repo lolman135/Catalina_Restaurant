@@ -10,8 +10,8 @@
 <header>
     <h1>Management Panel </h1>
     <nav>
-        <a href="/admin/orders" class="nav-link active">Orders</a>
-        <a href="/admin/menu" class="nav-link">Menu</a>
+        <a href="/catalina-restaurant/admin/orders" class="nav-link active">Orders</a>
+        <a href="/catalina-restaurant/admin/menu" class="nav-link">Menu</a>
     </nav>
 </header>
 
@@ -24,6 +24,9 @@
         <a th:href="@{/catalina-restaurant/admin/orders/statistic(type='delivered')}"
            th:class="${type == 'delivered'} ? 'toggle-btn active' : 'toggle-btn'">Delivered Orders</a>
     </div>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
 
     <table class="order-table">
         <thead>
@@ -76,5 +79,8 @@
 <footer>
     <p>© 2025 Course work. American and mexican restaurant</p>
 </footer>
+
+<script src="/scripts/script.js" defer></script>
+
 </body>
 </html>

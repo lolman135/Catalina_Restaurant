@@ -1,7 +1,9 @@
 package com.coursework.app.catalinarestaurant.service.menuItem;
 
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
+import com.coursework.app.catalinarestaurant.enums.Category;
 import com.coursework.app.catalinarestaurant.repository.menuItem.MenuItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,41 @@ public class MenuItemServiceImpl implements MenuItemService {
             throw new IllegalArgumentException("Wrong id provided!");
         }
         return menuItemRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void updateCategoryById(Long id, Category category) {
+        if (id == null){
+            throw new IllegalArgumentException("Wrong id provided!");
+        }
+        menuItemRepository.updateCategoryById(id, category);
+    }
+
+    @Override
+    @Transactional
+    public void updateNameById(Long id, String name) {
+        if (id == null){
+            throw new IllegalArgumentException("Wrong id provided!");
+        }
+        menuItemRepository.updateNameById(id, name);
+    }
+
+    @Override
+    @Transactional
+    public void updateDescriptionById(Long id, String description) {
+        if (id == null){
+            throw new IllegalArgumentException("Wrong id provided!");
+        }
+        menuItemRepository.updateDescriptionById(id, description);
+    }
+
+    @Override
+    @Transactional
+    public void updatePriceById(Long id, double price) {
+        if (id == null){
+            throw new IllegalArgumentException("Wrong id provided!");
+        }
+        menuItemRepository.updatePriceById(id, price);
     }
 }
