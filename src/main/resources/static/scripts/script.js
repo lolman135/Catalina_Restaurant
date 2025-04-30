@@ -66,25 +66,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const fileInput = document.querySelector('input[type="file"]#image');
-    const fileLabel = document.querySelector('.file-input-label');
-    const fileNameDisplay = document.querySelector('.file-name');
-    const previewContainer = document.querySelector('.preview-image-container');
+    const dragDropZone = document.getElementById('dragDropZone');
+    const fileInput = document.getElementById('image');
+    const fileNameDisplay = document.getElementById('fileName');
+    const previewContainer = document.getElementById('previewImageContainer');
 
-    if (fileInput && fileLabel && fileNameDisplay && previewContainer) {
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            console.log('File selected:', file ? file.name : 'None');
-            if (file) {
-                fileLabel.textContent = file.name;
-                fileNameDisplay.textContent = `Selected: ${file.name}`;
+    if (dragDropZone && fileInput && fileNameDisplay && previewContainer) {
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dragDropZone.addEventListener(eventName, preventDefaults, false);
+        });
 
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Highlight drop zone on drag
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dragDropZone.addEventListener(eventName, () => {
+                dragDropZone.classList.add('dragover');
+                console.log('Drag event:', eventName);
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dragDropZone.addEventListener(eventName, () => {
+                dragDropZone.classList.remove('dragover');
+                console.log('Drag event:', eventName);
+            }, false);
+        });
+
+        // Handle dropped files
+        dragDropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            console.log('Files dropped:', files.length > 0 ? files[0].name : 'None');
+            if (files.length > 0) {
+                fileInput.files = files;
+                updateFileName(files[0]);
+                previewImage(files[0]);
+            }
+        }, false);
+
+        // Handle file selection via input
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                console.log('File selected via input:', fileInput.files[0].name);
+                updateFileName(fileInput.files[0]);
+                previewImage(fileInput.files[0]);
+            } else {
+                console.log('No file selected');
+                fileNameDisplay.textContent = '';
+                previewContainer.innerHTML = '';
+            }
+        });
+
+        // Update file name display
+        function updateFileName(file) {
+            fileNameDisplay.textContent = `Selected: ${file.name}`;
+        }
+
+        // Preview image
+        function previewImage(file) {
+            if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
-                reader.onload = (event) => {
+                reader.onload = (e) => {
                     console.log('File preview loaded');
                     previewContainer.innerHTML = '';
                     const img = document.createElement('img');
-                    img.src = event.target.result;
+                    img.src = e.target.result;
                     img.style.maxWidth = '200px';
                     img.style.borderRadius = '8px';
                     img.style.marginTop = '10px';
@@ -95,15 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 reader.readAsDataURL(file);
             } else {
-                fileLabel.textContent = 'No file chosen';
-                fileNameDisplay.textContent = '';
+                console.log('Non-image file selected');
                 previewContainer.innerHTML = '';
             }
-        });
+        }
     } else {
         console.error('File input elements not found:', {
+            dragDropZone: !!dragDropZone,
             fileInput: !!fileInput,
-            fileLabel: !!fileLabel,
             fileNameDisplay: !!fileNameDisplay,
             previewContainer: !!previewContainer
         });

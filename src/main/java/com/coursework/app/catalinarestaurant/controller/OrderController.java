@@ -21,17 +21,14 @@ import java.util.Map;
 @SessionAttributes("cart")
 public class OrderController {
 
-    private final OrderMapper orderMapper;
     private final MenuItemsWithQuantityGenerator generator;
     private final OrderService orderService;
 
     public OrderController(
             MenuItemsWithQuantityGenerator generator,
-            OrderMapper orderMapper,
             OrderService orderService)
     {
         this.generator = generator;
-        this.orderMapper = orderMapper;
         this.orderService = orderService;
     }
 

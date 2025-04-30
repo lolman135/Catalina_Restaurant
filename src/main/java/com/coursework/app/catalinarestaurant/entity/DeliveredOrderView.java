@@ -38,5 +38,4 @@ public class DeliveredOrderView {
 
     @Column(name = "created_at")
     private LocalTime createdAt;
-
 }

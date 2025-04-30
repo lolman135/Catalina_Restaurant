@@ -51,7 +51,6 @@
 
 .order-form-wrapper .file-input-label {
     display: inline-block;
-    width: 100%;
     padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -59,8 +58,7 @@
     font-size: 16px;
     color: #333;
     cursor: pointer;
-    text-align: left;
-    box-sizing: border-box;
+    text-align: center;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -74,28 +72,30 @@
     outline: none;
 }
 
-.order-form-wrapper .file-input-label::after {
-    content: "Choose File";
-    position: absolute;
-    right: 10px;
-    top: 45%;
-    transform: translateY(-50%);
-    color: dimgrey;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.order-form-wrapper .file-input-label.required::before {
-    content: "*";
-    color: red;
-    margin-right: 5px;
-}
-
 .order-form-wrapper .file-name {
     margin-top: 5px;
     font-size: 14px;
     color: #555;
+}
+
+.order-form-wrapper .drag-drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.order-form-wrapper .drag-drop-zone p {
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.order-form-wrapper .drag-drop-zone.dragover {
+    border-color: #5cb85c;
+    background-color: #e6f3e6;
 }
 
 .order-form-wrapper select {
@@ -221,9 +221,12 @@
         padding: 8px;
     }
 
-    .order-form-wrapper .file-input-label::after {
-        font-size: 12px;
-        padding: 4px 8px;
+    .order-form-wrapper .drag-drop-zone {
+        padding: 15px;
+    }
+
+    .order-form-wrapper .drag-drop-zone p {
+        font-size: 14px;
     }
 
     .clean-cart-form {

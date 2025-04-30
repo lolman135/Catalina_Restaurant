@@ -58,13 +58,16 @@
             <div class="form-field">
                 <label for="image">Image:</label>
                 <div class="file-input-wrapper">
+                    <div class="drag-drop-zone" id="dragDropZone">
+                        <p>Put image here or</p>
+                        <label for="image" class="file-input-label">Choose File</label>
+                    </div>
                     <input type="file" id="image" name="image" accept="image/jpeg,image/png" required
                            th:field="*{file}">
-                    <label for="image" class="file-input-label">No file chosen</label>
-                    <div class="file-name"></div>
+                    <div class="file-name" id="fileName"></div>
                 </div>
                 <div th:if="${#fields.hasErrors('file')}" th:errors="*{file}" class="error"></div>
-                <div class="preview-image-container" style="margin-top: 10px;"></div>
+                <div class="preview-image-container" id="previewImageContainer" style="margin-top: 10px;"></div>
             </div>
             <button type="submit" class="submit-button">Add Menu Item</button>
         </form>
