@@ -61,6 +61,6 @@ public class OrderServiceImpl implements OrderService {
         if (orderStatus == null) {
             throw new IllegalArgumentException("Order status must not be null!");
         }
-        orderRepository.updateOrOrderStatusById(id, orderStatus);
+        orderRepository.updateOrderStatusById(id, orderStatus);
     }
 }

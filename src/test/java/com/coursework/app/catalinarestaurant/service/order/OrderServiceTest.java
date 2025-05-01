@@ -119,7 +119,7 @@ class OrderServiceTest {
 
         orderService.updateStatusById(id, status);
 
-        verify(orderRepository).updateOrOrderStatusById(id, status);
+        verify(orderRepository).updateOrderStatusById(id, status);
     }
 
     @Test
