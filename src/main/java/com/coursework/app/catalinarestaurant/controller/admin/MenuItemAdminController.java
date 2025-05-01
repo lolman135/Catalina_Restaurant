@@ -1,5 +1,6 @@
 package com.coursework.app.catalinarestaurant.controller.admin;
 
+import ch.qos.logback.classic.spi.EventArgUtil;
 import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.enums.Category;
@@ -126,7 +127,8 @@ public class MenuItemAdminController {
         }
 
         try {
-            menuItemService.save(request);
+            String saveMessage = menuItemService.save(request);
+            redirectAttributes.addFlashAttribute("success", saveMessage);
         } catch (Exception e){
             redirectAttributes.addFlashAttribute("error",
                     "Failed to create new dish: " + e.getMessage());

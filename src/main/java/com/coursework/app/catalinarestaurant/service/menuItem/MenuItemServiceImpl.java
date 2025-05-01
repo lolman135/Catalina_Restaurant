@@ -55,8 +55,11 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     @Transactional
     public void updateCategoryById(Long id, Category category) {
-        if (id == null){
+        if (id == null || id <= 0) {
             throw new IllegalArgumentException("Wrong id provided!");
+        }
+        if (category == null) {
+            throw new IllegalArgumentException("Category must not be null!");
         }
         menuItemRepository.updateCategoryById(id, category);
     }
@@ -64,26 +67,35 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     @Transactional
     public void updateNameById(Long id, String name) {
-        if (id == null){
+        if (id == null || id <= 0) {
             throw new IllegalArgumentException("Wrong id provided!");
         }
-        menuItemRepository.updateNameById(id, name);
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name must not be null or empty!");
+        }
+        menuItemRepository.updateNameById(id, name.trim());
     }
 
     @Override
     @Transactional
     public void updateDescriptionById(Long id, String description) {
-        if (id == null){
+        if (id == null || id <= 0) {
             throw new IllegalArgumentException("Wrong id provided!");
         }
-        menuItemRepository.updateDescriptionById(id, description);
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description must not be null or empty!");
+        }
+        menuItemRepository.updateDescriptionById(id, description.trim());
     }
 
     @Override
     @Transactional
     public void updatePriceById(Long id, double price) {
-        if (id == null){
+        if (id == null || id <= 0) {
             throw new IllegalArgumentException("Wrong id provided!");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("Price must not be negative!");
         }
         menuItemRepository.updatePriceById(id, price);
     }

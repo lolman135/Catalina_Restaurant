@@ -55,10 +55,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void updateStatusById(Long id, OrderStatus orderStatus) {
-        if (id == null){
-            throw new IllegalArgumentException("Wrong data provided!");
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Wrong id provided!");
         }
-
+        if (orderStatus == null) {
+            throw new IllegalArgumentException("Order status must not be null!");
+        }
         orderRepository.updateOrOrderStatusById(id, orderStatus);
     }
 }
