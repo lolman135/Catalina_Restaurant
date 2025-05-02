@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 alert.style.display = 'none';
             }, 500);
-        }, 10000);
+        }, 3000);
     });
 
     const addForm = document.querySelector('form[action$="/add"]');
