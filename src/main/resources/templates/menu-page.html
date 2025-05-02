@@ -28,7 +28,10 @@
                 <span class="price" th:text="'Price: ' + ${item.price} + ' ₴'"></span>
                 <br>
                 <form action="/catalina-restaurant/add-to-cart" method="post" onsubmit="return showPopup(event, this)">
-                      <div>
+
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                    <div>
                           <input type="hidden" name="itemId" th:value="${item.id}" />
 
                           <label th:for="'quantity-' + ${item.id}">quantity:</label>
