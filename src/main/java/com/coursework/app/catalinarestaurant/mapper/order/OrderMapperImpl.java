@@ -5,6 +5,7 @@ import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.entity.Order;
 import com.coursework.app.catalinarestaurant.entity.OrderItem;
 import com.coursework.app.catalinarestaurant.enums.OrderStatus;
+import com.coursework.app.catalinarestaurant.repository.menuItem.MenuItemRepository;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
 import com.coursework.app.catalinarestaurant.utils.number.NumberUtils;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,10 @@ import java.util.Map;
 @Component
 public class OrderMapperImpl implements OrderMapper {
 
-    private final MenuItemService menuItemService;
+    private final MenuItemRepository menuItemRepository;
 
-    public OrderMapperImpl(MenuItemService menuItemService) {
-        this.menuItemService = menuItemService;
+    public OrderMapperImpl(MenuItemRepository menuItemRepository) {
+        this.menuItemRepository = menuItemRepository;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class OrderMapperImpl implements OrderMapper {
 
         List<OrderItem> orderItems = cart.entrySet().stream()
                 .map(entry -> {
-                    MenuItem menuItem = menuItemService.findById(entry.getKey());
+                    MenuItem menuItem = menuItemRepository.findById(entry.getKey()).orElse(null);
                     return new OrderItem(menuItem, entry.getValue());
                 }).toList();
 
