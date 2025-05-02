@@ -25,7 +25,7 @@
 
         <h2>Add New Menu Item</h2>
 
-        <div th:if="${error}" class="error-messages" th:text="${error}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
 
         <form th:action="@{/catalina-restaurant/admin/menu/add}" th:object="${menuItemDto}" th:method="post" enctype="multipart/form-data">
             <div class="form-field">

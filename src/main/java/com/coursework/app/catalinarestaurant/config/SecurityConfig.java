@@ -31,7 +31,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                            .logoutSuccessUrl("/catalina-restaurant/menu")
+                        .logoutSuccessUrl("/catalina-restaurant/menu")
                         .permitAll()
                 );
         return http.build();

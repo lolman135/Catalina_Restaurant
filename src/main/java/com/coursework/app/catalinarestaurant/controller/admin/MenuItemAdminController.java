@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/catalina-restaurant/admin/menu")
 
@@ -121,8 +123,10 @@ public class MenuItemAdminController {
             BindingResult result,
             RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
-            redirectAttributes.addFlashAttribute("error",
-                    "Failed to create new dish: " + result.getAllErrors());
+            String errorMessage = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            redirectAttributes.addFlashAttribute("error", errorMessage);
             return "redirect:/catalina-restaurant/admin/menu/new";
         }
 

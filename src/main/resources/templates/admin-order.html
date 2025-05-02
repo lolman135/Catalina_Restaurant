@@ -13,6 +13,9 @@
     <nav>
         <a href="/catalina-restaurant/admin/orders" class="nav-link active">Orders</a>
         <a href="/catalina-restaurant/admin/menu" class="nav-link">Menu</a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
     </nav>
 </header>
 

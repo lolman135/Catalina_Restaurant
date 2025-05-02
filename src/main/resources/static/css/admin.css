@@ -269,6 +269,22 @@ footer {
     color: #e8e8e8;
 }
 
+.logout-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 20px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #c9302c;
+}
+
 @media (max-width: 768px) {
     .order-table {
         font-size: 14px;
