@@ -2,25 +2,40 @@ package com.coursework.app.catalinarestaurant.service.menuItem;
 
 import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
+import com.coursework.app.catalinarestaurant.entity.Order;
+import com.coursework.app.catalinarestaurant.entity.OrderItem;
 import com.coursework.app.catalinarestaurant.enums.Category;
 import com.coursework.app.catalinarestaurant.mapper.menuItem.MenuItemMapper;
 import com.coursework.app.catalinarestaurant.repository.menuItem.MenuItemRepository;
+import com.coursework.app.catalinarestaurant.repository.order.OrderRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
+    private final OrderRepository orderRepository;
     private final MenuItemMapper mapper;
 
-    public MenuItemServiceImpl(MenuItemRepository menuItemRepository, MenuItemMapper mapper) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public MenuItemServiceImpl(
+            MenuItemRepository menuItemRepository,
+            MenuItemMapper mapper,
+            OrderRepository orderRepository)
+    {
         this.menuItemRepository = menuItemRepository;
         this.mapper = mapper;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -33,11 +48,34 @@ public class MenuItemServiceImpl implements MenuItemService {
         return "Dish successfully added to the menu";
     }
 
+
     @Override
+    @Transactional
     public boolean deleteById(Long id) {
+        MenuItem menuItem = menuItemRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Wrong id provided!"));
+
+        List<Order> orders = menuItem.getOrderItems().stream().map(OrderItem::getOrder).distinct().toList();
+
+        for (OrderItem orderItem : new ArrayList<>(menuItem.getOrderItems())) {
+            Order order = orderItem.getOrder();
+            order.getOrderItems().remove(orderItem);
+            orderItem.setOrder(null);
+            orderItem.setMenuItem(null);
+        }
+        menuItem.getOrderItems().clear();
+
+        for (Order order : orders) {
+            if (order.getOrderItems().isEmpty()) {
+                orderRepository.delete(order);
+            }
+        }
+
         menuItemRepository.deleteById(id);
+
         return true;
     }
+
 
     @Override
     public List<MenuItem> findAll() {

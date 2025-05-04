@@ -18,10 +18,12 @@
     <main>
 
         <div class="order-form-wrapper">
+            <button class="clean-cart-button back-button" onclick="window.location.href='/catalina-restaurant/menu'">⮐</button>
             <form action="/catalina-restaurant/order/clean-cart" method="post" class="clean-cart-form">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button type="submit" class="clean-cart-button">✕</button>
             </form>
+
 
             <form th:object="${order}" th:action="@{/catalina-restaurant/order/register}" method="post">
                 <h2>Ordered dishes</h2>

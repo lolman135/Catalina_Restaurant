@@ -134,6 +134,31 @@
     right: 10px;
 }
 
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent !important;
+    border: none !important;
+    color: #333 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    padding: 5px !important;
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.2s ease-in-out !important;
+    border-radius: 50% !important;
+}
+
+.back-button:hover{
+    color: #d9534f !important;
+    background: transparent !important;
+}
+
 .order-form-wrapper .clean-cart-form .clean-cart-button {
     background: transparent !important;
     border: none !important;
