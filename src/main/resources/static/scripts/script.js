@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Debounce utility
     const debounce = (func, wait) => {
         let timeout;
         return (...args) => {
@@ -72,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContainer = document.getElementById('previewImageContainer');
 
     if (dragDropZone && fileInput && fileNameDisplay && previewContainer) {
-        // Prevent default drag behaviors
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dragDropZone.addEventListener(eventName, preventDefaults, false);
         });
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
         }
 
-        // Highlight drop zone on drag
         ['dragenter', 'dragover'].forEach(eventName => {
             dragDropZone.addEventListener(eventName, () => {
                 dragDropZone.classList.add('dragover');
@@ -97,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, false);
         });
 
-        // Handle dropped files
         dragDropZone.addEventListener('drop', (e) => {
             const files = e.dataTransfer.files;
             console.log('Files dropped:', files.length > 0 ? files[0].name : 'None');
@@ -108,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, false);
 
-        // Handle file selection via input
         fileInput.addEventListener('change', () => {
             if (fileInput.files.length > 0) {
                 console.log('File selected via input:', fileInput.files[0].name);
@@ -121,12 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update file name display
         function updateFileName(file) {
             fileNameDisplay.textContent = `Selected: ${file.name}`;
         }
 
-        // Preview image
         function previewImage(file) {
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();

@@ -20,12 +20,9 @@
     </header>
 
     <main class="menu-container">
-        <!-- Loop through each category with explicit vertical stacking -->
         <div th:each="category : ${T(com.coursework.app.catalinarestaurant.enums.Category).values()}">
             <div class="category-section">
-                <!-- Display category name as header -->
                 <h2 th:text="${category}" class="category-header"></h2>
-                <!-- Container for items in this category -->
                 <div class="category-items">
                     <div th:each="item : ${menuItemList}" th:if="${item.category == category}" class="menu-item" th:id="${item.id}">
                         <img th:src="${item.imageUrl}" class="menu-image" width="300" height="200" th:alt="${item.name}">
