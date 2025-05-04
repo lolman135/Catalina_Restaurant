@@ -63,6 +63,8 @@ public class MenuItemServiceTest {
     void deleteById_ShouldCallRepository() {
         Long id = 1L;
 
+        when(menuItemRepository.findById(id)).thenReturn(Optional.of(menuItem));
+
         boolean result = menuItemService.deleteById(id);
 
         verify(menuItemRepository, times(1)).deleteById(id);
