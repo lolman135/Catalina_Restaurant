@@ -4,6 +4,9 @@ import com.coursework.app.catalinarestaurant.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "menu_items")
 @NoArgsConstructor
@@ -33,6 +36,9 @@ public class MenuItem {
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
+
+    @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public MenuItem(String name, String description, double price, Category category) {
         this.name = name;

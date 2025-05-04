@@ -12,7 +12,7 @@
 
 <div class="wrapper">
 
-    <header class = "menu-header">
+    <header class="menu-header">
         <h1>Catalina Restaurant</h1>
         <div th:if="${not #maps.isEmpty(cart)}">
             <a href="/catalina-restaurant/order/new"><img src="/static/images/cart.png" alt="cart.png" class="cart-img"></a>
@@ -20,37 +20,43 @@
     </header>
 
     <main class="menu-container">
-        <div th:each="item : ${menuItemList}" class="menu-item" th:id="${item.id}">
-            <img th:src="${item.imageUrl}" class="menu-image" width="300" height="200" th:alt="${item.name}">
-            <div class="menu-details">
-                <h2 th:text="${item.name}"></h2>
-                <p th:text="${item.description}"></p>
-                <span class="price" th:text="'Price: ' + ${item.price} + ' ₴'"></span>
-                <br>
-                <form action="/catalina-restaurant/add-to-cart" method="post" onsubmit="return showPopup(event, this)">
-
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-                    <div>
-                          <input type="hidden" name="itemId" th:value="${item.id}" />
-
-                          <label th:for="'quantity-' + ${item.id}">quantity:</label>
-                          <div class="quantity-container">
-                              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(-1, ' + ${item.id} + ')'">−</button>
-                              <input type="number" class="quantity-input" th:id="'quantity-' + ${item.id}" name="quantity" min="1" value="1" readonly required />
-                              <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
-                          </div>
-
-                          <button type="submit" class="submit-button">add to cart</button>
-                      </div>
-                </form>
+        <!-- Loop through each category with explicit vertical stacking -->
+        <div th:each="category : ${T(com.coursework.app.catalinarestaurant.enums.Category).values()}">
+            <div class="category-section">
+                <!-- Display category name as header -->
+                <h2 th:text="${category}" class="category-header"></h2>
+                <!-- Container for items in this category -->
+                <div class="category-items">
+                    <div th:each="item : ${menuItemList}" th:if="${item.category == category}" class="menu-item" th:id="${item.id}">
+                        <img th:src="${item.imageUrl}" class="menu-image" width="300" height="200" th:alt="${item.name}">
+                        <div class="menu-details">
+                            <h2 th:text="${item.name}"></h2>
+                            <p th:text="${item.description}"></p>
+                            <span class="price" th:text="'Price: ' + ${item.price} + ' ₴'"></span>
+                            <br>
+                            <form action="/catalina-restaurant/add-to-cart" method="post" onsubmit="return showPopup(event, this)">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <div>
+                                    <input type="hidden" name="itemId" th:value="${item.id}" />
+                                    <label th:for="'quantity-' + ${item.id}">quantity:</label>
+                                    <div class="quantity-container">
+                                        <button type="button" class="quantity-btn" th:onclick="'changeQuantity(-1, ' + ${item.id} + ')'">−</button>
+                                        <input type="number" class="quantity-input" th:id="'quantity-' + ${item.id}" name="quantity" min="1" value="1" readonly required />
+                                        <button type="button" class="quantity-btn" th:onclick="'changeQuantity(1, ' + ${item.id} + ')'">+</button>
+                                    </div>
+                                    <button type="submit" class="submit-button">add to cart</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-  <footer>
-      <p>&copy; 2025 Course work. American and mexican restaurant</p>
-  </footer>
+    <footer>
+        <p>© 2025 Course work. American and mexican restaurant</p>
+    </footer>
 
 </div>
 
@@ -58,7 +64,7 @@
 
 <div id="cartPopup" class="popup">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+        <span class="close" onclick="closePopup()">×</span>
         <h3>Item Added to Cart</h3>
         <p id="popupItemName"></p>
         <p id="popupQuantity"></p>
