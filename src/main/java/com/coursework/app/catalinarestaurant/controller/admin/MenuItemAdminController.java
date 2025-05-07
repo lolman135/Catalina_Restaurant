@@ -5,6 +5,7 @@ import com.coursework.app.catalinarestaurant.dto.menuItem.MenuItemDto;
 import com.coursework.app.catalinarestaurant.entity.MenuItem;
 import com.coursework.app.catalinarestaurant.enums.Category;
 import com.coursework.app.catalinarestaurant.service.menuItem.MenuItemService;
+import com.coursework.app.catalinarestaurant.utils.counter.Counter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,7 +33,7 @@ public class MenuItemAdminController {
 
     @GetMapping
     public String showAllMenuItem(Model model){
-        model.addAttribute("menuItems", menuItemService.findAll());
+        model.addAttribute("menuItems", Counter.getMapOfItemNumbers(menuItemService.findAll()));
         return "admin-menu";
     }
 

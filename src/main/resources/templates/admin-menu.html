@@ -33,7 +33,7 @@
     <table class="order-table">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>Number</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -42,38 +42,38 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="menuItem : ${menuItems}">
+        <tr th:each="menuItem : ${menuItems.entrySet()}">
             <td style="width: 60px;">
-                <input type="text" name="id" class="id-field" th:value="${menuItem.id}" readonly>
+                <input type="text" name="id" class="id-field" th:value="${menuItem.key}" readonly>
             </td>
             <td>
-                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/name'}" th:method="put">
-                    <input type="text" name="name" class="status-select" th:value="${menuItem.name}" onchange="this.form.submit()" required>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.value.id} + '/name'}" th:method="put">
+                    <input type="text" name="name" class="status-select" th:value="${menuItem.value.name}" onchange="this.form.submit()" required>
                 </form>
             </td>
             <td>
-                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/description'}" th:method="put">
-                    <textarea name="description" class="status-select textarea-field" rows="1" th:text="${menuItem.description}" onchange="this.form.submit()" required></textarea>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.value.id} + '/description'}" th:method="put">
+                    <textarea name="description" class="status-select textarea-field" rows="1" th:text="${menuItem.value.description}" onchange="this.form.submit()" required></textarea>
                 </form>
             </td>
             <td>
-                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/price'}" th:method="put">
-                    <input type="number" name="price" class="status-select" th:value="${menuItem.price}" step="0.01" onchange="this.form.submit()" required>
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.value.id} + '/price'}" th:method="put">
+                    <input type="number" name="price" class="status-select" th:value="${menuItem.value.price}" step="0.01" onchange="this.form.submit()" required>
                 </form>
             </td>
             <td>
-                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.id} + '/category'}" th:method="put">
+                <form th:action="@{'/catalina-restaurant/admin/menu/update/' + ${menuItem.value.id} + '/category'}" th:method="put">
                     <select name="category" class="status-select" onchange="this.form.submit()">
                         <option th:each="category : ${T(com.coursework.app.catalinarestaurant.enums.Category).values()}"
                                 th:value="${category}"
                                 th:text="${category}"
-                                th:selected="${menuItem.category != null} ? ${menuItem.category == category} : false">
+                                th:selected="${menuItem.value.category != null} ? ${menuItem.value.category == category} : false">
                         </option>
                     </select>
                 </form>
             </td>
             <td>
-                <form th:action="@{'/catalina-restaurant/admin/menu/delete/' + ${menuItem.id}}" th:method="delete">
+                <form th:action="@{'/catalina-restaurant/admin/menu/delete/' + ${menuItem.value.id}}" th:method="delete">
                     <button type="submit" class="delete-btn">Delete</button>
                 </form>
             </td>
