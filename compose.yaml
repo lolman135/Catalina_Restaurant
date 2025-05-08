@@ -1,9 +1,39 @@
 services:
-  postgres:
-    image: 'postgres:latest'
+  db:
+    image: postgres:17
+    container_name: catalina_db
+    restart: always
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=postgres'
-      - 'POSTGRES_USER=postgres'
+      POSTGRES_DB: catalina
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
     ports:
-      - '5432'
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+
+  app:
+    build:
+      context: .
+    image: lolman135/catalina-restaurant:latest
+    container_name: catalina
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/catalina
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_HIBERNATE_DLL_AUTO: update
+      SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: 10MB
+      SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE: 10MB
+      APP_UPLOAD_DIR: /app/media/dishes
+      APP_UPLOAD_URL_PREFIX: /media/dishes
+    ports:
+      - '8080:8080'
+    volumes:
+      - /Users/lolman15/Pictures/CatalinaUploads/dishes:/app/media/dishes
+
+volumes:
+  postgres-data:
