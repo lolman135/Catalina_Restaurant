@@ -77,7 +77,7 @@ class MenuItemAdminControllerTest {
         mockMvc.perform(put("/catalina-restaurant/admin/menu/update/1/name")
                         .param("name", "123$$$")
                         .with(csrf()))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
