@@ -16,6 +16,9 @@ services:
   app:
     build:
       context: .
+      platforms:
+        - linux/amd64
+        - linux/arm64
     image: lolman135/catalina-restaurant:latest
     container_name: catalina
     depends_on:
