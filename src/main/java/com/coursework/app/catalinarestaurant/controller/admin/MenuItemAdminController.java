@@ -40,13 +40,16 @@ public class MenuItemAdminController {
     @PutMapping("/update/{id}/name")
     public String updateName(
             @PathVariable("id") Long id,
-            @RequestParam
-            @Pattern(
-                    regexp = "^[А-Яа-яA-Za-zЁёІіЇїЪъЫы\\-\\s]{0,50}+$",
-                    message = "Name should contains only letters"
-            ) String name,
+            @RequestParam String name,
             RedirectAttributes redirectAttributes
     ) {
+
+        if (!name.matches("^[А-Яа-яA-Za-zЁёІіЇїЪъЫы\\-\\s]{1,50}$")) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Name should contain only letters (max 50 symbols)");
+            return "redirect:/catalina-restaurant/admin/menu";
+        }
+
         try {
             menuItemService.updateNameById(id, name);
             redirectAttributes.addFlashAttribute("success", "Name updated successfully");
@@ -60,12 +63,17 @@ public class MenuItemAdminController {
     @PutMapping("/update/{id}/description")
     public String updateDescription(
             @PathVariable("id") Long id,
-            @RequestParam @NotBlank(message = "Description should not be empty") String description,
+            @RequestParam String description,
             RedirectAttributes redirectAttributes
     ){
+        if (description.isBlank()){
+            redirectAttributes.addFlashAttribute("error", "Description cannot be empty!");
+            return "redirect:/catalina-restaurant/admin/menu";
+        }
         try {
             menuItemService.updateDescriptionById(id, description);
-            redirectAttributes.addFlashAttribute("success", "Description updated successfully");
+            redirectAttributes.addFlashAttribute("success",
+                    "Description updated successfully");
         } catch (Exception e){
             redirectAttributes.addFlashAttribute("error",
                     "Failed to update description: " + e.getMessage());
@@ -76,9 +84,13 @@ public class MenuItemAdminController {
     @PutMapping("/update/{id}/price")
     public String updatePrice(
             @PathVariable("id") Long id,
-            @RequestParam @Min(0) double price,
+            @RequestParam double price,
             RedirectAttributes redirectAttributes
     ){
+        if (price < 0){
+            redirectAttributes.addFlashAttribute("error", "Price can't be less than zero");
+            return "redirect:/catalina-restaurant/admin/menu";
+        }
         try {
             menuItemService.updatePriceById(id, price);
             redirectAttributes.addFlashAttribute("success", "Price updated successfully");
@@ -92,9 +104,14 @@ public class MenuItemAdminController {
     @PutMapping("/update/{id}/category")
     public String updateCategory(
             @PathVariable("id") Long id,
-            @RequestParam @NotNull Category category,
+            @RequestParam Category category,
             RedirectAttributes redirectAttributes
     ){
+        if (category == null){
+            redirectAttributes.addFlashAttribute("error", "You need to choose category");
+            return "redirect:/catalina-restaurant/admin/menu";
+        }
+
         try {
             menuItemService.updateCategoryById(id, category);
             redirectAttributes.addFlashAttribute("success", "Category updated successfully");
